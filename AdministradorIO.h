@@ -6,11 +6,11 @@
 
 class AdministradorIO{
 
-  int * valores_pines_digitales;
-  int * valores_pines_analogicos;
+  int * digital_pins_values;
+  int * analog_pins_values;
 
-  int * funcion_pines_digitales;
-  int * funcion_pines_analogicos;
+  int * digital_pins_function;
+  int * analog_pins_function;
 
   unsigned int * x_digitales;
   unsigned int * x_analogicos;
@@ -20,18 +20,18 @@ class AdministradorIO{
 
   public:
 
-    AdministradorIO(int cantidad_pines_digitales, int cantidad_pines_analogicos);
-    AdministradorIO(int cantidad_pines_digitales, unsigned int * _pines_digitales, unsigned int * _funcion_digitales, int cantidad_pines_analogicos, unsigned int * _pines_analogicos, unsigned int * _funcion_analogicos);
+    AdministradorIO(int n_digital_pins, int n_analog_pins);
+    AdministradorIO(int n_digital_pins, unsigned int * _pines_digitales, unsigned int * _funcion_digitales, int n_analog_pins, unsigned int * _pines_analogicos, unsigned int * _funcion_analogicos);
     ~AdministradorIO();
 
-    void init(int cantidad_pines_digitales, int cantidad_pines_analogicos);
-    void establecerFuncionPin(int pin, bool tipo_pin, bool funcion);
+    void init(int n_digital_pins, int n_analog_pins);
+    void setFunctionPin(int pin, bool tipo_pin, bool funcion);
 
-    void leerPinesDigitales();
-    void escribirPinesDigitales();
+    void readDigitalPins();
+    void writeDigitalPins();
 
-    void leerPinesAnalogicos();
-    void escribirPinesAnalogicos();
+    void readAnalogPins();
+    void writeAnalogPins();
 }
 
 #endif
