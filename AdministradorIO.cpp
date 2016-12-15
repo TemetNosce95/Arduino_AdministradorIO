@@ -5,10 +5,10 @@ AdministradorIO::AdministradorIO(int n_digital_pins, unsigned int * _pines_digit
 
   this->init(n_digital_pins, n_analog_pins);
   for(int i = 0; i < this->n_digitales; i++)
-    this->establecerFuncionPin(i, _pines_digitales[i], true, _funcion_digitales[i]);
+    this->setFunctionPin(i, _pines_digitales[i], true, _funcion_digitales[i]);
 
   for(int i = 0; i < this->n_digitales; i++)
-    this->establecerFuncionPin(i, _pines_digitales[i], true, _funcion_digitales[i]);
+    this->setFunctionPin(i, _pines_digitales[i], true, _funcion_digitales[i]);
 }
 
 AdministradorIO::AdministradorIO(int n_digital_pins, int n_analog_pins){
