@@ -79,30 +79,72 @@ void AdministradorIO::setFunctionPin(int nPin,int pin, bool tipo_pin, bool funci
 }
 
 /* Sirve para leer todos los valores de los pines digitales en un instante dado */
-void AdministradorIO::readDigitalPins(){
+void AdministradorIO::readAllDigitalPins(){
   for(int i = 0; i < this->n_digitales; i++)
     if(!this->digital_pins_function[i]) /* Lo pongo negado porque arriba la entrada es cuando funcion es false */
       this->digital_pins_values[i] = digitalRead(this->x_digitales[i]);
 }
 
 /* Sirve para escribir todos los valores de los pines digitales en un instante dado */
-void AdministradorIO::writeDigitalPins(){
+void AdministradorIO::writeAllDigitalPins(){
   for(int i = 0; i < this->n_digitales; i++)
     if(this->digital_pins_function[i]) /* Lo pongo así porque arriba la salida es cuando funcion es true */
       digitalWrite(this->x_digitales[i], (this->digital_pins_values[i]) ? HIGH : LOW );
 }
 
 /* Sirve para leer todos los valores de los pines analogicos en un instante dado */
-void AdministradorIO::readAnalogPins(){
+void AdministradorIO::readAllAnalogPins(){
   for(int i = 0; i < this->n_analogicos; i++)
     if(!this->analog_pins_function[i]) /* Lo pongo negado porque arriba la entrada es cuando funcion es false */
       this->analog_pins_values[i] = analogRead(this->x_analogicos[i]);
 }
 
 /* Sirve para escribir todos los valores de los pines analógicos en un instante dado */
-void AdministradorIO::writeAnalogPins(){
+void AdministradorIO::writeAllAnalogPins(){
   for(int i = 0; i < this->n_analogicos; i++)
     if(this->analog_pins_function[i]) /* Lo pongo así porque arriba la salida es cuando funcion es true */
       analogWrite(this->x_analogicos[i], this->analog_pins_values[i]);
 
+}
+
+void AdministradorIO::updateValueIndividualOutputPin(int type, int offset, int value){
+  switch(type){
+    //analog
+    case 0:
+      if(offset >= 0 && offset < this->n_analogicos)
+        if(this->analog_pins_function[offset]){
+          this->analog_pins_values[offset] = constraint(value,0,255);
+          analogWrite(this->x_analogicos[offset], this->analog_pins_values[offset]);
+        }
+    break;
+
+    //digital
+    case 1:
+    if(offset >= 0 && offset < this->n_digitales)
+      if(this->digital_pins_function[offset]){
+        this->digital_pins_values[offset] = (value != 0) ? HIGH : LOW;
+        digitalWrite(this->x_digitales[offset], this->digital_pins_values[offset]);
+      }
+    break;
+  }
+}
+
+int AdministradorIO::getAnalogPinValue(int offset){
+  if(offset >= 0 && offset < this->n_analogicos)
+    return this->analog_pins_values[offset];
+}
+
+bool AdministradorIO::getAnalogPinFunction(int offset){
+  if(offset >= 0 && offset < this->n_analogicos)
+    return this->analog_pins_function[offset];
+}
+
+bool AdministradorIO::getDigitalPinValue(int offset){
+  if(offset >= 0 && offset < this->n_digitales)
+    return this->digital_pins_values[offset];
+}
+
+bool AdministradorIO::getDigitalPinFunction(int offset){
+  if(offset >= 0 && offset < this->n_analogicos)
+    return this->digital_pins_function[offset];
 }

@@ -27,11 +27,16 @@ class AdministradorIO{
     void init(int n_digital_pins, int n_analog_pins);
     void setFunctionPin(int pin, bool tipo_pin, bool funcion);
 
-    void readDigitalPins();
-    void writeDigitalPins();
+    void readAllDigitalPins();
+    void writeAllDigitalPins();
 
-    void readAnalogPins();
-    void writeAnalogPins();
+    void readAllAnalogPins();
+    void writeAllAnalogPins();
+
+    void updateIndividualOutputPin(int type, int offset, int value);
+
+    int getAnalogPinValue(int offset);
+    bool getDigitalPinValue(int offset);
 }
 
 #endif
